@@ -48,10 +48,10 @@ git diff main..feature/my-branch
 ```bash
 DIFF=$(git diff HEAD~1)
 
-curl -X POST https://diffsense-api.p.rapidapi.com/commit-message \
+curl -X POST https://diffsense.p.rapidapi.com/commit-message \
   -H "Content-Type: application/json" \
   -H "x-rapidapi-key: YOUR_RAPIDAPI_KEY" \
-  -H "x-rapidapi-host: diffsense-api.p.rapidapi.com" \
+  -H "x-rapidapi-host: diffsense.p.rapidapi.com" \
   -d "{\"diff\": \"$DIFF\"}"
 ```
 
@@ -148,10 +148,10 @@ Save as `.git/hooks/prepare-commit-msg` and make it executable:
 DIFF=$(git diff --cached)
 if [ -z "$DIFF" ]; then exit 0; fi
 
-MSG=$(curl -s -X POST https://diffsense-api.p.rapidapi.com/commit-message \
+MSG=$(curl -s -X POST https://diffsense.p.rapidapi.com/commit-message \
   -H "Content-Type: application/json" \
   -H "x-rapidapi-key: YOUR_RAPIDAPI_KEY" \
-  -H "x-rapidapi-host: diffsense-api.p.rapidapi.com" \
+  -H "x-rapidapi-host: diffsense.p.rapidapi.com" \
   -d "{\"diff\": $(echo "$DIFF" | jq -Rs .)}" | jq -r '.commit_message')
 
 echo "$MSG" > "$1"
@@ -177,10 +177,10 @@ jobs:
 
       - name: DiffSense security review
         run: |
-          curl -s -X POST https://diffsense-api.p.rapidapi.com/review \
+          curl -s -X POST https://diffsense.p.rapidapi.com/review \
             -H "Content-Type: application/json" \
             -H "x-rapidapi-key: ${{ secrets.RAPIDAPI_KEY }}" \
-            -H "x-rapidapi-host: diffsense-api.p.rapidapi.com" \
+            -H "x-rapidapi-host: diffsense.p.rapidapi.com" \
             -d "{\"diff\": ${{ steps.diff.outputs.diff }}}"
 ```
 
@@ -193,11 +193,11 @@ import requests
 diff = subprocess.check_output(["git", "diff", "HEAD~1"]).decode()
 
 response = requests.post(
-    "https://diffsense-api.p.rapidapi.com/review",
+    "https://diffsense.p.rapidapi.com/review",
     headers={
         "Content-Type": "application/json",
         "x-rapidapi-key": "YOUR_RAPIDAPI_KEY",
-        "x-rapidapi-host": "diffsense-api.p.rapidapi.com",
+        "x-rapidapi-host": "diffsense.p.rapidapi.com",
     },
     json={"diff": diff}
 )
@@ -214,12 +214,12 @@ const { execSync } = require("child_process");
 
 const diff = execSync("git diff HEAD~1").toString();
 
-const response = await fetch("https://diffsense-api.p.rapidapi.com/commit-message", {
+const response = await fetch("https://diffsense.p.rapidapi.com/commit-message", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
     "x-rapidapi-key": "YOUR_RAPIDAPI_KEY",
-    "x-rapidapi-host": "diffsense-api.p.rapidapi.com",
+    "x-rapidapi-host": "diffsense.p.rapidapi.com",
   },
   body: JSON.stringify({ diff }),
 });
