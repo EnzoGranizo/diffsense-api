@@ -242,18 +242,6 @@ console.log(commit_message);
 
 ---
 
-## Pricing
-
-Available on [RapidAPI](https://rapidapi.com/terrycrews99/api/diffsense):
-
-| Plan | Price | Requests |
-|---|---|---|
-| Free | $0/mo | 50 req/mo |
-| Pro | $9/mo | 1,000 req/mo |
-| Ultra | $29/mo | 10,000 req/mo |
-
----
-
 ## License
 
 MIT
